@@ -14,7 +14,7 @@
 
 	# Use (a copy of) the "diff-highlight" contrib script for more readable diffs.
 	# Get it at <https://raw.githubusercontent.com/git/git/master/contrib/diff-highlight/diff-highlight>
-	pager = diff-highlight | less
+	# pager = diff-highlight | less
 
 [color]
 	# Use colors by default when the output is a terminal that supports them.

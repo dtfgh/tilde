@@ -3,12 +3,6 @@
 # Settings, functions and aliases for commands
 # =============================================================================
 
-# Enable simple aliases to be sudo'ed. ("sudone"?)
-# http://www.gnu.org/software/bash/manual/bashref.html#Aliases says: "If the
-# last character of the alias value is a space or tab character, then the next
-# command word following the alias is also checked for alias expansion."
-alias sudo='sudo ';
-
 # Paths and binaries
 # -----------------------------------------------------------------------------
 # List the directories we want to add to the PATH variable, if they exist.
@@ -79,7 +73,7 @@ alias rm='rm -i';
 alias nano='nano -w';
 alias pico='nano';
 alias vi='vim';
-export EDITOR='vim';
+export EDITOR='nano';
 
 # Make sure "view" as-is works when stdin is not a terminal and prevent the
 # normal ensuing keyboard input chaos.
@@ -183,8 +177,17 @@ if command -v ctags > /dev/null; then
 	alias ctags='ctags --exclude={docs,cache,tiny_mce,layout} --recurse';
 fi;
 
-# OS X has no "md5sum", so use "md5" as a fall-back.
+# bash calc
+function calc
+{
+  echo "${1}" | bc -l;
+}
+
+# OS X has no 'md5sum', so use 'md5' as a fall-back.
 command -v md5sum > /dev/null || alias md5sum='md5';
+
+# macOS has no `sha1sum`, so use `shasum` as a fallback
+command -v sha1sum > /dev/null || alias sha1sum='shasum'
 
 # Make the "sudo" prompt more useful, without requiring access to "visudo".
 export SUDO_PROMPT='[sudo] password for %u on %h: ';
@@ -206,17 +209,17 @@ fi;
 
 # Show the current Git branch, if any.
 # (This is useful in the shell prompt.)
-function git-show-branch {
-	branch="$(git symbolic-ref -q HEAD 2>/dev/null)";
-	ret=$?;
-	case $ret in
-		0) echo "(${branch##*/})";;
-		1) echo '(no branch)';;
-		128) echo -n;;
-		*) echo "[unknown git exit code: $ret]";;
-	esac;
-	return $ret;
-}
+# function git-show-branch {
+# 	branch="$(git symbolic-ref -q HEAD 2>/dev/null)";
+# 	ret=$?;
+# 	case $ret in
+# 		0) echo "(${branch##*/})";;
+# 		1) echo '(no branch)';;
+# 		128) echo -n;;
+# 		*) echo "[unknown git exit code: $ret]";;
+# 	esac;
+# 	return $ret;
+# }
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------

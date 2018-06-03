@@ -8,6 +8,11 @@ function title () {
 	echo -n $'\e]0;'"$@"$'\a';
 }
 
+# Get requested host from file.
+function bashost () {
+	cat ~/.bash/ost;
+}
+
 # Display the process tree inside the prompt for shells that are not at the top
 # level (as determined by $SHLVL).
 function __prompt_display_process_tree () {
@@ -56,16 +61,19 @@ function __prompt_display_error () {
 if (($UID)); then
 	# You can override this in ~/.bash/extra. For example:
 	# (($UID)) && export __prompt_color="${FONT_BOLD}${FG_BLUE}"
-	__prompt_color="${FG_CYAN}";
+	__prompt_color="${FG_YELLOW}";
 	__prompt_title_user_char=':';
 else
 	__prompt_color="${FG_RED}";
 	__prompt_title_user_char='#';
 fi;
 command -v git > /dev/null \
-	&& __prompt_vcs_string=' $(git-show-branch)' \
-	|| __prompt_vcs_string='';
-export PS1="\${__prompt_color}-----[ \\t ]$(__prompt_display_process_tree) (!\\!) [ \$(__prompt_display_error) ] \\u@\\h \\w$__prompt_vcs_string\\e[m\\n\\$ ";
+#	&& __prompt_vcs_string=' $(git-show-branch)' \
+#	|| __prompt_vcs_string='';
+# export PS1="\${__prompt_color}-----[ \\t ]$(__prompt_display_process_tree) (!\\!) [ \$(__prompt_display_error) ] \\u@\\h \\w\\e[m\\n\\$ ";
+# export PS1="\${__prompt_color}-----[ \\t ]$(__prompt_display_process_tree) (!\\!) [ \$(__prompt_display_error) ] \\u@\\h \\w$__prompt_vcs_string\\e[m\\n\\$ ";
+export PS1="\[\033[38;5;246m\]\t\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;202m\]\u\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;246m\]@\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;208m\]$(bashost)\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;246m\]:\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;214m\]\w\[\]\[\033[38;5;15m\] \[\]\[\033[38;5;246m\]\$\[\]\[\033[38;5;15m\] \[\]";
+
 
 # Update the window/tab title for GUI terminals.
 if [ "${TERM#xterm}" != "$TERM" -o "${TERM#screen}" != "$TERM" ]; then
