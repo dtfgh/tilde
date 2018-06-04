@@ -61,7 +61,7 @@ function __prompt_display_error () {
 if (($UID)); then
 	# You can override this in ~/.bash/extra. For example:
 	# (($UID)) && export __prompt_color="${FONT_BOLD}${FG_BLUE}"
-	__prompt_color="${FG_YELLOW}";
+	__prompt_color="${FG_CYAN}";
 	__prompt_title_user_char=':';
 else
 	__prompt_color="${FG_RED}";
